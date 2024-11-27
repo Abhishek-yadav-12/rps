@@ -5,22 +5,38 @@
 </head>
 <body>
     <!-- Log In Form -->
-    <form method="get">
-        <label for="name">Enter Your Name:</label>
-        <input type="text" id="name" name="name" required>
+    <form method="post">
+        <label for="who">Email:</label>
+        <input type="text" id="who" name="who" required>
+        <br>
+        <label for="pass">Password:</label>
+        <input type="password" id="pass" name="pass" required>
+        <br>
         <input type="submit" value="Log In"> <!-- Submit button with value="Log In" -->
     </form>
 
-    <a href="?name=Tester">Please Log In</a>
     <?php
-    // Check if the 'name' parameter exists
+    // If the 'who' or 'pass' fields are missing, display an error
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $who = isset($_POST['who']) ? trim($_POST['who']) : '';
+        $pass = isset($_POST['pass']) ? trim($_POST['pass']) : '';
+
+        if ($who == '' || $pass == '') {
+            echo '<p style="color:red;">Email and password are required.</p>';
+        } elseif ($pass == 'badsecret42') {
+            echo '<p style="color:red;">Incorrect password.</p>';
+        } else {
+            echo '<p>Login successful!</p>';
+        }
+    }
+
+    // Check if the 'name' parameter exists for the game page
     if (!isset($_GET['name']) || strlen($_GET['name']) < 1) {
-        // Show the "Log In" form if the 'name' parameter is missing
         echo '<h1>Welcome to Rock Paper Scissors</h1>';
         echo '<form method="get">';
         echo '<label for="name">Enter Your Name:</label>';
         echo '<input type="text" id="name" name="name" required>';
-        echo '<input type="submit" value="Log In">'; // Exact match for the value
+        echo '<input type="submit" value="Start Game">';
         echo '</form>';
         exit();
     }
