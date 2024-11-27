@@ -4,9 +4,60 @@
     <title>Abhishek Yadav 58a27eba</title>
 </head>
 <body>
-    <h1>Welcome to Rock Paper Scissors</h1>
-    <p>
-        <a href="rps.php">Please Log In</a>
-    </p>
+    <?php
+    // Navigation logic
+    if (!isset($_GET['name']) || strlen($_GET['name']) < 1) {
+        echo '<h1>Welcome to Rock Paper Scissors</h1>';
+        echo '<p><a href="?name=Tester">Please Log In</a></p>';
+        exit();
+    }
+
+    // Game setup
+    $names = array('Rock', 'Paper', 'Scissors');
+    $human = isset($_POST['human']) ? $_POST['human'] + 0 : -1;
+    $computer = rand(0, 2);
+
+    // Game logic
+    function check($computer, $human) {
+        if ($human == $computer) {
+            return "Tie";
+        } elseif (
+            ($human == 0 && $computer == 2) ||
+            ($human == 1 && $computer == 0) ||
+            ($human == 2 && $computer == 1)
+        ) {
+            return "You Win";
+        } else {
+            return "You Lose";
+        }
+    }
+
+    $result = check($computer, $human);
+
+    // Game Interface
+    echo '<div class="container">';
+    echo '<h1>Rock Paper Scissors</h1>';
+    echo '<p>Welcome: ' . htmlentities($_GET['name']) . '</p>';
+    ?>
+    <form method="post">
+        <select name="human">
+            <option value="-1">Select</option>
+            <option value="0">Rock</option>
+            <option value="1">Paper</option>
+            <option value="2">Scissors</option>
+        </select>
+        <input type="submit" value="Play">
+        <input type="submit" name="logout" value="Logout">
+    </form>
+    <pre>
+<?php
+if ($human == -1) {
+    echo "Please select a strategy and press Play.\n";
+} else {
+    echo "Your Play={$names[$human]} Computer Play={$names[$computer]} Result=$result\n";
+}
+?>
+    </pre>
+    </div>
 </body>
 </html>
