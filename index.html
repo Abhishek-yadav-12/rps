@@ -4,6 +4,13 @@
     <title>Abhishek Yadav 58a27eba</title>
 </head>
 <body>
+    <!-- Log In Form -->
+    <form method="get">
+        <label for="name">Enter Your Name:</label>
+        <input type="text" id="name" name="name" required>
+        <input type="submit" value="Log In"> <!-- Submit button with value="Log In" -->
+    </form>
+
     <a href="?name=Tester">Please Log In</a>
     <?php
     // Check if the 'name' parameter exists
@@ -13,7 +20,7 @@
         echo '<form method="get">';
         echo '<label for="name">Enter Your Name:</label>';
         echo '<input type="text" id="name" name="name" required>';
-        echo '<input type="submit" value="Log In">';
+        echo '<input type="submit" value="Log In">'; // Exact match for the value
         echo '</form>';
         exit();
     }
